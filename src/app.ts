@@ -8,10 +8,10 @@ dotenv.config();
 console.log("Hi1");
 
 app.get("/", (req, res) => {
-  res.send("Hello");
+  res.send("Hello2");
 });
 
 //
-const PORT = process.env.PORT || 3007;
+const PORT = process.env.PORT || 3006;
 
 app.listen(PORT, () => console.log(`server running at ${PORT}`));
