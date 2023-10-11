@@ -13,24 +13,17 @@ const createTask = async (req: Request, res: Response) => {
       name: name,
       completed: completed,
     });
-    // console.log(task);
-    //
     // Validate the input against the Zod schema
-    const validatedTask = TaskSchema.parse(task);
+    const validatedTask = TaskSchema.safeParse(task);
+    //
+    if (!validatedTask.success) {
+      return res.json(fromZodError(validatedTask.error));
+    }
     //
     const createdTask = await task.save();
     res.json({ createdTask: createdTask });
   } catch (err) {
-    // const validationError = fromZodError(err as z.ZodError);
-    // res.json(err);
-
-    if (err instanceof z.ZodError) {
-      // Handle Zod validation error here
-      res.status(400).json({ error: "Validation error", details: err.issues });
-    } else {
-      // Handle other errors
-      res.status(500).json({ error: "Server error" });
-    }
+    res.json(err);
   }
 };
 //

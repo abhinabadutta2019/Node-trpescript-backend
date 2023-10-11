@@ -1,6 +1,6 @@
 //////////ZOD setup starts/////
 import { z } from "zod";
-import { fromZodError } from "zod-validation-error";
+// import { fromZodError } from "zod-validation-error";
 //
 export const TaskSchema = z.object({
   name: z.string().min(5),
@@ -8,7 +8,7 @@ export const TaskSchema = z.object({
 });
 //
 
-export type OneTask = z.infer<typeof TaskSchema>;
+// export type OneTask = z.infer<typeof TaskSchema>;
 // type OneTask = z.infer<typeof TaskSchema>;
 // //
 // const oneTask = { title: "a", completed: "play " };
