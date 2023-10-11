@@ -1,14 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 //////////ZOD setup starts/////
-import { z } from "zod";
-import { fromZodError } from "zod-validation-error";
+const zod_1 = require("zod");
 //
-export const TaskSchema = z.object({
-  name: z.string().min(5),
-  completed: z.boolean().default(false),
+const TaskSchema = zod_1.z.object({
+    title: zod_1.z.string().min(5).default("null"),
+    completed: zod_1.z.boolean().default(false),
 });
-//
-
-export type OneTask = z.infer<typeof TaskSchema>;
 // type OneTask = z.infer<typeof TaskSchema>;
 // //
 // const oneTask = { title: "a", completed: "play " };

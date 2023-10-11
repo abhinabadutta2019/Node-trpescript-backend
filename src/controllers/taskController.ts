@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
 import { Task } from "../models/Task";
+import { TaskSchema } from "../validators/taskValidator";
+import { fromZodError } from "zod-validation-error";
 //
 
 /////////////
@@ -13,10 +15,22 @@ const createTask = async (req: Request, res: Response) => {
     });
     // console.log(task);
     //
+    // Validate the input against the Zod schema
+    const validatedTask = TaskSchema.parse(task);
+    //
     const createdTask = await task.save();
     res.json({ createdTask: createdTask });
   } catch (err) {
-    res.json(err);
+    // const validationError = fromZodError(err as z.ZodError);
+    // res.json(err);
+
+    if (err instanceof z.ZodError) {
+      // Handle Zod validation error here
+      res.status(400).json({ error: "Validation error", details: err.issues });
+    } else {
+      // Handle other errors
+      res.status(500).json({ error: "Server error" });
+    }
   }
 };
 //
