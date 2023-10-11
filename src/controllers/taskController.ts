@@ -33,4 +33,29 @@ const getTasks = async (req: Request, res: Response) => {
   }
 };
 
-export { createTask, getTasks };
+//
+const updateTaskByID = async (req: Request, res: Response) => {
+  try {
+    const task = await Task.findById(req.params.id);
+
+    if (!task) {
+      return res.json({ message: "Task not found" });
+    }
+    if (req.body.name) {
+      task.name = req.body.name; // Update the name if provided
+    }
+
+    if (req.body.completed !== undefined) {
+      task.completed = req.body.completed; // Update completed status if provided
+    }
+
+    //
+    const updatedTask = await task.save(); // Save the updated task
+    //
+    res.json({ updatedTask: updatedTask });
+  } catch (err) {
+    res.json(err);
+  }
+};
+
+export { createTask, getTasks, updateTaskByID };
