@@ -63,13 +63,22 @@ const updateTaskByID = async (req: Request, res: Response) => {
     if (completed !== undefined) {
       task.completed = completed; // Update completed status if provided
     }
+    //
+    // Validate the input against the Zod schema
+    const validatedTask = TaskSchema.safeParse(task);
+    // error for zod schema
+    if (!validatedTask.success) {
+      console.log(fromZodError(validatedTask.error));
+
+      return res.status(400).json(fromZodError(validatedTask.error));
+    }
 
     //
     const updatedTask = await task.save(); // Save the updated task
     //
     res.json({ updatedTask: updatedTask });
   } catch (err) {
-    res.json(err);
+    res.status(500).json(err);
   }
 };
 
