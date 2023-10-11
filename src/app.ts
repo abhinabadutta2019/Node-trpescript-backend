@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
+import { tasksRouter } from "./routers/task";
 
 const app = express();
 app.use(express.json()); // Middleware to parse JSON requests
@@ -32,6 +33,8 @@ console.log("Hi1");
 app.get("/", (req, res) => {
   res.send("Hello2");
 });
+// routes
+app.use("/tasks", tasksRouter);
 
 //
 const PORT = process.env.PORT || 3006;
