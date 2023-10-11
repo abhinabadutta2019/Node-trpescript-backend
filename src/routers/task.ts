@@ -24,12 +24,12 @@ router.post("/", async (req, res) => {
 //
 router.get("/", async (req, res) => {
   try {
-    const tasks = Task.find({});
+    const tasks = await Task.find({});
     console.log(tasks);
 
-    // if (task.length > 0) {
-    //   return res.json({ message: "no task found" });
-    // }
+    if (tasks.length > 0) {
+      return res.json({ message: "no task found" });
+    }
     //
 
     res.json({ tasks: tasks });
