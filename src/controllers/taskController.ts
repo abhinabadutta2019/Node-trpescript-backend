@@ -15,15 +15,17 @@ const createTask = async (req: Request, res: Response) => {
     });
     // Validate the input against the Zod schema
     const validatedTask = TaskSchema.safeParse(task);
-    //
+    // error for zod schema
     if (!validatedTask.success) {
-      return res.json(fromZodError(validatedTask.error));
+      console.log(fromZodError(validatedTask.error));
+
+      return res.status(400).json(fromZodError(validatedTask.error));
     }
     //
     const createdTask = await task.save();
     res.json({ createdTask: createdTask });
   } catch (err) {
-    res.json(err);
+    res.status(500).json(err);
   }
 };
 //
