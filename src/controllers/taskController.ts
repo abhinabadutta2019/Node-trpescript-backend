@@ -4,11 +4,12 @@ import { Task } from "../models/Task";
 //
 const createTask = async (req: Request, res: Response) => {
   try {
+    const { name, completed } = req.body;
     const task = new Task({
-      name: req.body.name,
-      completed: req.body.completed,
+      name: name,
+      completed: completed,
     });
-    console.log(task);
+    // console.log(task);
     //
     const createdTask = await task.save();
     res.json({ createdTask: createdTask });
@@ -41,12 +42,15 @@ const updateTaskByID = async (req: Request, res: Response) => {
     if (!task) {
       return res.json({ message: "Task not found" });
     }
-    if (req.body.name) {
-      task.name = req.body.name; // Update the name if provided
+
+    const { name, completed } = req.body;
+
+    if (name) {
+      task.name = name; // Update the name if provided
     }
 
-    if (req.body.completed !== undefined) {
-      task.completed = req.body.completed; // Update completed status if provided
+    if (completed !== undefined) {
+      task.completed = completed; // Update completed status if provided
     }
 
     //
