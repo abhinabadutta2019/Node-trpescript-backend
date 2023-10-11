@@ -58,4 +58,21 @@ const updateTaskByID = async (req: Request, res: Response) => {
   }
 };
 
-export { createTask, getTasks, updateTaskByID };
+//
+const deleteTaskByID = async (req: Request, res: Response) => {
+  try {
+    const task = await Task.findById(req.params.id);
+
+    if (!task) {
+      return res.json({ message: "Task not found" });
+    }
+
+    const deleteTask = await Task.findOneAndDelete({ _id: req.params.id });
+
+    res.json({ deleteTask: deleteTask });
+  } catch (err) {
+    res.json(err);
+  }
+};
+
+export { createTask, getTasks, updateTaskByID, deleteTaskByID };
