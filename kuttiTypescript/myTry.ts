@@ -1,28 +1,18 @@
-interface IAge {
-  cat: number;
-  dog: number;
-  catName?: string | number;
-  // abc?: string,
+//blog link
+// https://www.tutorialspoint.com/typescript/typescript_interfaces.htm
+interface RunOptions {
+  program: string;
+  commandline: string[] | string | (() => string);
+  //   commandline: string[];
 }
 
-const age: IAge = {
-  cat: 1,
-  dog: 2,
-};
+//commandline as string
 
-console.log(age, "age");
-
-const newAge: IAge = {
-  cat: 1,
-  dog: 2,
-};
-console.log(newAge, "newAge");
+//commandline as a string array
+let options: RunOptions = { program: "test1", commandline: ["Hello", "World"] };
+console.log(options.commandline[0]);
+console.log(options.commandline[1]);
 
 //
-const bigAge: IAge = {
-  cat: 1,
-  dog: 2,
-  catName: "Sta",
-};
-
-console.log(bigAge, "bigAge");
+let options2: RunOptions = { program: "test2", commandline: "Chrishmas" };
+console.log(options2.commandline);

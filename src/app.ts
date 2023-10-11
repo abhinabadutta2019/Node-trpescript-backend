@@ -29,6 +29,14 @@ connectToMongoDB();
 
 ////////////////////////////////////////////
 console.log("Hi1");
+//
+//blog link
+// https://www.tutorialspoint.com/typescript/typescript_interfaces.htm
+///////////
+interface RunOptions {
+  program: string;
+  commandline: string[] | string | (() => string);
+}
 
 //////////////////////////////////////////////
 
