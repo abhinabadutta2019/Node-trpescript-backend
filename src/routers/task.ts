@@ -27,7 +27,7 @@ router.get("/", async (req, res) => {
     const tasks = await Task.find({});
     console.log(tasks);
 
-    if (tasks.length > 0) {
+    if (tasks.length < 1) {
       return res.json({ message: "no task found" });
     }
     //

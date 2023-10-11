@@ -9,7 +9,7 @@ dotenv.config();
 //////////////////////////////////////////
 
 ///////mongoDB cloud//////////////////
-let uri = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.te788iv.mongodb.net/new-MERN-backend?retryWrites=true&w=majority`;
+let uri = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.te788iv.mongodb.net/typescript-MERN?retryWrites=true&w=majority`;
 //
 
 async function connectToMongoDB() {
