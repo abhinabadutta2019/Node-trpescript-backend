@@ -21,7 +21,11 @@ const createTask = async (req: Request, res: Response) => {
 
     // error for zod schema
     if (!validatedTask.success) {
-      console.log(fromZodError(validatedTask.error));
+      console.log(
+        fromZodError(validatedTask.error),
+        "fromZodError(validatedTask.error)"
+      );
+
       return res.status(400).json(fromZodError(validatedTask.error));
     }
     //

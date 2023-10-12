@@ -9,8 +9,6 @@ export const TaskSchema = z.object({
   slot: z.string().optional(),
 });
 
-//
-
 // with custom error message
 
 // export const TaskSchema = z.object({
