@@ -119,5 +119,28 @@ const deleteTaskByID = async (req: Request, res: Response) => {
     res.json(err);
   }
 };
+//toogle task- true/false
+const updateTaskCompleted = async (req: Request, res: Response) => {
+  try {
+    const task = await Task.findById(req.params.id);
+    if (!task) {
+      return res.status(400).json({ message: "Task not found" });
+    }
+    // Toggle the value of task.completed
+    task.completed = !task.completed;
+    //
+    await task.save();
+    //
+    res.status(200).json({ task: task });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
 
-export { createTask, getTasks, updateTaskByID, deleteTaskByID };
+export {
+  createTask,
+  getTasks,
+  updateTaskByID,
+  deleteTaskByID,
+  updateTaskCompleted,
+};
