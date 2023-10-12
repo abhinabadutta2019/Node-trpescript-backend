@@ -17,10 +17,11 @@ const createTask = async (req: Request, res: Response) => {
     });
     // Validate the input against the Zod schema
     const validatedTask = TaskSchema.safeParse(task);
+    console.log(validatedTask, "validatedTask");
+
     // error for zod schema
     if (!validatedTask.success) {
       console.log(fromZodError(validatedTask.error));
-
       return res.status(400).json(fromZodError(validatedTask.error));
     }
     //
