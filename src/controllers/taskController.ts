@@ -76,19 +76,25 @@ const updateTaskByID = async (req: Request, res: Response) => {
 
     const { name, description, completed, slot } = req.body;
 
-    task.name = name ? name : task.name;
-    task.description = description ? description : task.description;
-    task.completed = completed !== undefined ? completed : task.completed;
-    task.slot = slot ? slot : task.slot;
-
     // Validate the input against the Zod schema
-    const validatedTask = TaskSchema.safeParse(task);
-    //
-    console.log(validatedTask, "validatedTask");
+    const validatedTask = TaskSchema.safeParse({
+      name: name || task.name,
+      description: description || task.description,
+      completed: completed || task.completed,
+      slot: slot || task.slot,
+    });
 
     if (!validatedTask.success) {
       return res.status(400).json(fromZodError(validatedTask.error));
     }
+
+    console.log(validatedTask, "validatedTask");
+
+    // Only update the task if validation is successful
+    task.name = validatedTask.data.name;
+    task.description = validatedTask.data.description;
+    task.completed = validatedTask.data.completed;
+    task.slot = validatedTask.data.slot;
 
     const updatedTask = await task.save(); // Save the updated task
 
@@ -97,7 +103,6 @@ const updateTaskByID = async (req: Request, res: Response) => {
     res.status(500).json(err);
   }
 };
-
 //
 const deleteTaskByID = async (req: Request, res: Response) => {
   try {
