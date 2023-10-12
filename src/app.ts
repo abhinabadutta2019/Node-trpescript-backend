@@ -1,11 +1,13 @@
 import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
+import cors from "cors"; // Import the cors package
 import { tasksRouter } from "./routers/task";
 
 const app = express();
 app.use(express.json()); // Middleware to parse JSON requests
 dotenv.config();
+app.use(cors()); // Enable CORS for all routes
 //////////////////////////////////////////
 
 ///////mongoDB cloud//////////////////
