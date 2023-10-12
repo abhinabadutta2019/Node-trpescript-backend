@@ -3,8 +3,10 @@ import { z } from "zod";
 // import { fromZodError } from "zod-validation-error";
 //
 export const TaskSchema = z.object({
-  name: z.string().min(5, { message: "Must be 5 or more characters long" }),
+  name: z.string().min(5),
   completed: z.boolean(),
+  description: z.string().optional(),
+  slot: z.string().optional(),
 });
 // with custom error message
 
