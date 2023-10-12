@@ -8,10 +8,12 @@ import { fromZodError } from "zod-validation-error";
 //
 const createTask = async (req: Request, res: Response) => {
   try {
-    const { name, completed } = req.body;
+    const { name, completed, description, slot } = req.body;
     const task = new Task({
       name: name,
       completed: completed,
+      description: description,
+      slot: slot,
     });
     // Validate the input against the Zod schema
     const validatedTask = TaskSchema.safeParse(task);

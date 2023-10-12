@@ -11,7 +11,7 @@ app.use(cors()); // Enable CORS for all routes
 //////////////////////////////////////////
 
 ///////mongoDB cloud//////////////////
-let uri = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.te788iv.mongodb.net/typescript-MERN?retryWrites=true&w=majority`;
+let uri = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.te788iv.mongodb.net/typescript-MERN-13-Oct-23?retryWrites=true&w=majority`;
 //
 
 async function connectToMongoDB() {
