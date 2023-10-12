@@ -79,7 +79,7 @@ const updateTaskByID = async (req: Request, res: Response) => {
 
     const updatedTask = await task.save(); // Save the updated task
     //
-    res.json({ updatedTask: updatedTask });
+    res.status(200).json({ updatedTask: updatedTask });
   } catch (err) {
     res.status(500).json(err);
   }
