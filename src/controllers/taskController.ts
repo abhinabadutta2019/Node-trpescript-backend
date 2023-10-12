@@ -28,13 +28,26 @@ const createTask = async (req: Request, res: Response) => {
 
       return res.status(400).json(fromZodError(validatedTask.error));
     }
-    //
-    const createdTask = await task.save();
+
+    const validatedData = validatedTask.data;
+    const createdTask = new Task({
+      name: validatedData.name,
+      completed: validatedData.completed,
+      description: validatedData.description,
+      slot: validatedData.slot,
+    });
+
+    await createdTask.save();
+
     res.json({ createdTask: createdTask });
+    // res.json();
   } catch (err) {
     res.status(500).json(err);
   }
 };
+
+//
+// const createdTask = await afterValidatedTask.save();
 //
 const getTasks = async (req: Request, res: Response) => {
   try {
