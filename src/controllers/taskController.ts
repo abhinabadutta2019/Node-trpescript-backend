@@ -74,31 +74,24 @@ const updateTaskByID = async (req: Request, res: Response) => {
       return res.json({ message: "Task not found" });
     }
 
-    const { name, completed } = req.body;
+    const { name, description, completed, slot } = req.body;
 
-    if (name) {
-      task.name = name; // Update the name if provided
-    }
+    task.name = name ? name : task.name;
+    task.description = description ? description : task.description;
+    task.completed = completed !== undefined ? completed : task.completed;
+    task.slot = slot ? slot : task.slot;
 
-    if (completed !== undefined) {
-      task.completed = completed; // Update completed status if provided
-    }
-    //
-    const afterUpdateTask = new Task({
-      name: name,
-      completed: completed,
-    });
-
-    //
     // Validate the input against the Zod schema
-    const validatedTask = TaskSchema.safeParse(afterUpdateTask);
-    // error for zod schema
+    const validatedTask = TaskSchema.safeParse(task);
+    //
+    console.log(validatedTask, "validatedTask");
+
     if (!validatedTask.success) {
       return res.status(400).json(fromZodError(validatedTask.error));
     }
 
     const updatedTask = await task.save(); // Save the updated task
-    //
+
     res.status(200).json({ updatedTask: updatedTask });
   } catch (err) {
     res.status(500).json(err);
