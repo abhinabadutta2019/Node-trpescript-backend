@@ -121,17 +121,23 @@ const deleteTaskByID = async (req: Request, res: Response) => {
 };
 //toogle task- true/false
 const updateTaskCompleted = async (req: Request, res: Response) => {
+  //
+  //
+  console.log("updateTaskCompleted");
   try {
-    const task = await Task.findById(req.params.id);
-    if (!task) {
-      return res.status(400).json({ message: "Task not found" });
+    const oneTask = await Task.findById(req.params.id);
+    if (!oneTask) {
+      return res.status(400).json({ message: "oneTask not found" });
     }
     // Toggle the value of task.completed
-    task.completed = !task.completed;
+    oneTask.completed = !oneTask.completed;
     //
-    await task.save();
+    await oneTask.save();
     //
-    res.status(200).json({ task: task });
+    const tasks = await Task.find();
+
+    //
+    res.status(200).json({ oneTask: oneTask, tasks: tasks });
   } catch (err) {
     res.status(500).json(err);
   }
