@@ -52,7 +52,7 @@ const createTask = async (req: Request, res: Response) => {
 const getTasks = async (req: Request, res: Response) => {
   try {
     const tasks = await Task.find({});
-    console.log(tasks);
+    console.log(tasks, "from getTasks route");
 
     if (tasks.length < 1) {
       return res.json({ message: "no task found" });
@@ -108,15 +108,20 @@ const deleteTaskByID = async (req: Request, res: Response) => {
   try {
     const task = await Task.findById(req.params.id);
 
+    // const task = await Task.findById(1);
+
     if (!task) {
-      return res.json({ message: "Task not found" });
+      return res.status(400).json({ message: "Task not found" });
     }
 
-    const deleteTask = await Task.findOneAndDelete({ _id: req.params.id });
+    // const deletedTask = await Task.findOneAndDelete({ _id: req.params.id });
 
-    res.json({ deleteTask: deleteTask });
+    console.log(task, "from delete route");
+
+    // res.json({ deletedTask: deletedTask });
+    res.status(200).json({ message: "task deleted" });
   } catch (err) {
-    res.json(err);
+    res.status(500).json(err);
   }
 };
 //toogle task- true/false
