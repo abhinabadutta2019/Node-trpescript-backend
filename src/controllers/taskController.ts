@@ -26,7 +26,8 @@ const createTask = async (req: Request, res: Response) => {
         "fromZodError(validatedTask.error)"
       );
 
-      return res.status(400).json(fromZodError(validatedTask.error));
+      //zod messa in a string showing
+      return res.status(400).json(fromZodError(validatedTask.error).message);
     }
 
     const validatedData = validatedTask.data;
