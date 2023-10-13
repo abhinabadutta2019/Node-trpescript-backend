@@ -9,15 +9,17 @@ import { fromZodError } from "zod-validation-error";
 const createTask = async (req: Request, res: Response) => {
   try {
     const { name, completed, description, slot } = req.body;
-    const task = new Task({
+    const task = {
       name: name,
       completed: completed,
       description: description,
       slot: slot,
-    });
+    };
     // Validate the input against the Zod schema
     const validatedTask = TaskSchema.safeParse(task);
     console.log(validatedTask, "validatedTask");
+    //
+    console.log(validatedTask);
 
     // error for zod schema
     if (!validatedTask.success) {
@@ -29,6 +31,9 @@ const createTask = async (req: Request, res: Response) => {
       //zod messa in a string showing
       return res.status(400).json(fromZodError(validatedTask.error).message);
     }
+    //
+
+    //
 
     const validatedData = validatedTask.data;
     const createdTask = new Task({
