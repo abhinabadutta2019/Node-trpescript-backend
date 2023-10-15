@@ -8,6 +8,10 @@ import { fromZodError } from "zod-validation-error";
 //
 const createTask = async (req: Request, res: Response) => {
   try {
+    //
+    console.log(req.body, "req.body");
+
+    //
     const { name, completed, description, slot } = req.body;
     const task = {
       name: name,
