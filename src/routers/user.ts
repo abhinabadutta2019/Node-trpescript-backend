@@ -1,8 +1,8 @@
 import { User } from "../models/User";
 import { Router } from "express";
 const router = Router();
-import { z } from "zod";
-import { UserSchema, IUser } from "../validators/userValidator";
+import { UserSchema } from "../validators/userValidator";
+import { fromZodError } from "zod-validation-error";
 import bcrypt from "bcryptjs";
 
 //
@@ -19,17 +19,33 @@ router.get("/", async (req, res) => {
 router.post("/", async (req, res) => {
   try {
     //
-    //
     console.log(req.body, "req.body");
     //
     const { username, password } = req.body;
     //
+
+    //
+    const validatedTask = UserSchema.safeParse({
+      username: username,
+      password: password,
+    });
+    //
+    if (!validatedTask.success) {
+      //zod messa in a string showing
+      return res
+        .status(400)
+        .json({ error: fromZodError(validatedTask.error).message });
+    }
+    //
+    const validatedData = validatedTask.data;
+    // console.log(validatedData, "validatedData");
+
     // Generate a salt and hash the user's password
     const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
+    const hashedPassword = await bcrypt.hash(validatedData.password, salt);
     //
     const user = new User({
-      username: username,
+      username: validatedData.username,
       password: hashedPassword,
     });
     await user.save();
