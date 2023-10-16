@@ -2,7 +2,17 @@ import jwt, { JwtPayload } from "jsonwebtoken";
 import { User } from "../models/User";
 import { Request, Response, NextFunction } from "express";
 
-const requireAuth = async (req: Request, res: Response, next: NextFunction) => {
+//
+// Define an interface that extends the Request interface
+interface CustomRequest extends Request {
+  user: any; // Replace 'any' with the actual user data type
+}
+
+const requireAuth = async (
+  req: CustomRequest,
+  res: Response,
+  next: NextFunction
+) => {
   const { authorization } = req.headers;
 
   if (!authorization) {
