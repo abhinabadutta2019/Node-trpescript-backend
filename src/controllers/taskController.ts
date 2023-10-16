@@ -2,8 +2,15 @@ import { Request, Response } from "express";
 import { Task } from "../models/Task";
 import { TaskSchema } from "../validators/taskValidator";
 import { fromZodError } from "zod-validation-error";
+// const jwt = require("jsonwebtoken");
 import jwt from "jsonwebtoken";
 //
+//
+const createToken = (_id: string) => {
+  return jwt.sign({ _id: _id }, process.env.JWT_SECRET as string, {
+    expiresIn: "1h",
+  });
+};
 
 /////////////
 //
