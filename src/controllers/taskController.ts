@@ -71,7 +71,7 @@ const createTask = async (req: Request, res: Response) => {
 const getTasks = async (req: Request, res: Response) => {
   try {
     const tasks = await Task.find({});
-    console.log(tasks, "from getTasks route");
+    // console.log(tasks, "from getTasks route");
 
     if (tasks.length < 1) {
       return res.json({ message: "no task found" });

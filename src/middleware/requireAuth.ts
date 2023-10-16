@@ -22,13 +22,22 @@ const requireAuth = async (
 
   const token = authorization.split(" ")[1];
   //
+  console.log(token, "requireAuth middleware");
+
+  //
   try {
     const { _id } = jwt.verify(
       token,
       process.env.JWT_SECRET as string
     ) as JwtPayload;
+    //
+    console.log(_id, "_id requireAuth middleware");
     //this set to only send id - of the user - from all his details
     req.user = await User.findOne({ _id }).select("_id");
+    //
+    console.log(req.user, "req.user requireAuth middleware");
+
+    //
     next();
   } catch (err) {
     console.log(err);
