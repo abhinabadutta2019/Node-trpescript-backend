@@ -65,7 +65,11 @@ const registerUser = async (req: Request, res: Response) => {
     // jwt token
     const token = createToken(user._id.toString());
 
-    res.json({ message: "user created", token });
+    res.json({
+      message: "user created",
+      token: token,
+      username: user.username,
+    });
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
@@ -102,7 +106,11 @@ const loginUser = async (req: Request, res: Response) => {
 
     console.log(token, "token");
 
-    res.status(200).json({ message: "login successful", token: token });
+    res.status(200).json({
+      message: "login successful",
+      token: token,
+      username: user.username,
+    });
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
