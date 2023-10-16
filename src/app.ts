@@ -38,7 +38,7 @@ app.get("/", (req, res) => {
 });
 // routes
 app.use("/tasks", tasksRouter);
-app.use("/user", userRouter);
+app.use("/users", userRouter);
 
 //
 const PORT = process.env.PORT || 3006;
