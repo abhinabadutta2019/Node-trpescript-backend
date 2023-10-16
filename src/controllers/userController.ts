@@ -90,7 +90,7 @@ const loginUser = async (req: Request, res: Response) => {
       return res.status(404).json({ messsage: "user not found" });
     }
 
-    console.log(user.password, "user");
+    // console.log(user.password, "user");
 
     const isMatch = await bcrypt.compare(password, user.password);
 
@@ -104,7 +104,7 @@ const loginUser = async (req: Request, res: Response) => {
     const token = createToken(user._id.toString());
     //
 
-    console.log(token, "token");
+    console.log(token, "token from loginUser controller/route ");
 
     res.status(200).json({
       //   message: "login successful",

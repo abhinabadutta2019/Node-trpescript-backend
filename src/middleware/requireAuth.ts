@@ -19,6 +19,8 @@ const requireAuth = async (
   if (!authorization) {
     return res.status(401).json({ error: "authorization token required" });
   }
+  //
+  // console.log(req.headers, "req.headers :requireAuth middleware");
 
   console.log(authorization, "authorization: requireAuth middleware");
 
