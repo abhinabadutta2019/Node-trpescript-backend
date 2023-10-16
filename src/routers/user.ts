@@ -77,7 +77,7 @@ router.post("/login", async (req, res) => {
       return res.status(401).json({ message: "Incorrect password" });
     }
 
-    res.json({ user: user });
+    res.status(200).json({ user: user });
   } catch (err) {
     console.log(err);
     res.json(err);
