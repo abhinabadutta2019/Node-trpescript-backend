@@ -1,7 +1,8 @@
 import { User } from "../models/User";
 import { Router } from "express";
 const router = Router();
-import { UserSchema, OneUser } from "../validators/userValidator";
+import { z } from "zod";
+import { UserSchema, IUser } from "../validators/userValidator";
 import bcrypt from "bcryptjs";
 
 //
@@ -45,7 +46,8 @@ router.post("/", async (req, res) => {
 router.post("/login", async (req, res) => {
   try {
     const { username, password } = req.body;
-    const user = await User.find({ username: username });
+    // need to be findOne(find giving error )
+    const user = await User.findOne({ username: username });
 
     if (!user) {
       return res.status(404).json({ messsage: "user not found" });
@@ -53,13 +55,13 @@ router.post("/login", async (req, res) => {
 
     console.log(user.password, "user");
 
-    // const isMatch = await bcrypt.compare(password, user.password);
+    const isMatch = await bcrypt.compare(password, user.password);
 
-    // if (!isMatch) {
-    //   return res.status(401).json({ message: "Incorrect password" });
-    // }
+    if (!isMatch) {
+      return res.status(401).json({ message: "Incorrect password" });
+    }
 
-    res.json(user);
+    res.json({ user: user });
   } catch (err) {
     console.log(err);
     res.json(err);
