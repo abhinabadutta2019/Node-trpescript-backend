@@ -66,7 +66,7 @@ const registerUser = async (req: Request, res: Response) => {
     const token = createToken(user._id.toString());
 
     res.json({
-      message: "user created",
+      //   message: "user created",
       token: token,
       username: user.username,
     });
@@ -107,7 +107,7 @@ const loginUser = async (req: Request, res: Response) => {
     console.log(token, "token");
 
     res.status(200).json({
-      message: "login successful",
+      //   message: "login successful",
       token: token,
       username: user.username,
     });
