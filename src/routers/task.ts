@@ -20,9 +20,10 @@ import { requireAuth, CustomRequest } from "../middleware/requireAuth";
 //
 
 //
-router.post("/", requireAuth, createTask);
+router.get("/", requireAuth, getTasks);
 //
-router.get("/", getTasks);
+
+router.post("/", createTask);
 router.put("/:id", updateTaskByID);
 router.delete("/:id", deleteTaskByID);
 //toogle task- true/false

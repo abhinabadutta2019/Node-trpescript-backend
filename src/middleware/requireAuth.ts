@@ -5,6 +5,7 @@ import { Request, Response, NextFunction } from "express";
 //
 // Define an interface that extends the Request interface
 interface CustomRequest extends Request {
+  //as no question mark - was the reason of error
   user?: any; // Replace 'any' with the actual user data type
 }
 
