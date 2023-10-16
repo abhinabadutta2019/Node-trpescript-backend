@@ -12,6 +12,14 @@ const createToken = (_id: string) => {
   });
 };
 
+//
+// const check = jwt.verify(
+//   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTJjYTgwZDNjMTY5YjZhMTZlZjdlMDAiLCJpYXQiOjE2OTc0MzM2NDUsImV4cCI6MTY5NzQzNzI0NX0.jiRcnwbOP7olqeIYIGod7A5ZeKTEUCOenSqSJtlkENI",
+//   process.env.JWT_SECRET as string
+// );
+
+// console.log(check, "check");
+
 const getAllUser = async (req: Request, res: Response) => {
   try {
     const users = await User.find({});
@@ -85,8 +93,16 @@ const loginUser = async (req: Request, res: Response) => {
     if (!isMatch) {
       return res.status(401).json({ message: "Incorrect password" });
     }
+    //
+    console.log(user._id, "user._id");
 
-    res.status(200).json({ user: user, message: "login successful" });
+    // jwt token
+    const token = createToken(user._id.toString());
+    //
+
+    console.log(token, "token");
+
+    res.status(200).json({ message: "login successful", token: token });
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
