@@ -16,9 +16,11 @@ import { requireAuth, CustomRequest } from "../middleware/requireAuth";
 // import { CustomRequest } from '../middleware/requireAuth';
 
 // require auth for all workout routes
-router.use(requireAuth);
+// router.use(requireAuth);
 //
 
+//
+router.post("/", requireAuth, createTask);
 //
 router.get("/", getTasks);
 router.put("/:id", updateTaskByID);
