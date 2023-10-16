@@ -5,6 +5,13 @@ import { fromZodError } from "zod-validation-error";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
+//
+const createToken = (_id: string) => {
+  return jwt.sign({ _id: _id }, process.env.JWT_SECRET as string, {
+    expiresIn: "1h",
+  });
+};
+
 const getAllUser = async (req: Request, res: Response) => {
   try {
     const users = await User.find({});
@@ -47,8 +54,10 @@ const registerUser = async (req: Request, res: Response) => {
       password: hashedPassword,
     });
     await user.save();
+    // jwt token
+    const token = createToken(user._id.toString());
 
-    res.json({ user: user, message: "user created" });
+    res.json({ message: "user created", token });
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
