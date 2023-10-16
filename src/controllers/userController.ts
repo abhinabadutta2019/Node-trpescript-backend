@@ -47,7 +47,7 @@ const registerUser = async (req: Request, res: Response) => {
     });
     await user.save();
 
-    res.json({ user: user });
+    res.json({ user: user, message: "user created" });
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
@@ -56,6 +56,9 @@ const registerUser = async (req: Request, res: Response) => {
 
 //
 const loginUser = async (req: Request, res: Response) => {
+  //
+  console.log(req.body, "req.body of loginUser");
+  //
   try {
     const { username, password } = req.body;
     // need to be findOne(find giving error )
@@ -73,7 +76,7 @@ const loginUser = async (req: Request, res: Response) => {
       return res.status(401).json({ message: "Incorrect password" });
     }
 
-    res.status(200).json({ user: user });
+    res.status(200).json({ user: user, message: "login successful" });
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
