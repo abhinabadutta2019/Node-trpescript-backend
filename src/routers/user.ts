@@ -1,6 +1,7 @@
 import { User } from "../models/User";
 import { Router } from "express";
 const router = Router();
+import bcrypt from "bcryptjs";
 
 //
 router.get("/", async (req, res) => {
@@ -20,9 +21,14 @@ router.post("/", async (req, res) => {
     console.log(req.body, "req.body");
     //
     const { username, password } = req.body;
+    //
+    // Generate a salt and hash the user's password
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+    //
     const user = new User({
       username: username,
-      password: password,
+      password: hashedPassword,
     });
     await user.save();
 
@@ -32,6 +38,8 @@ router.post("/", async (req, res) => {
     res.json(err);
   }
 });
+
+//
 
 //
 export { router as userRouter };
