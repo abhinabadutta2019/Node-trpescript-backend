@@ -32,8 +32,15 @@ const createTask = async (req: Request, res: Response) => {
         "fromZodError(validatedTask.error)"
       );
 
+      console.log(
+        fromZodError(validatedTask.error).message,
+        ">>fromZodError(validatedTask.error).message"
+      );
+
       //zod messa in a string showing
-      return res.status(400).json(fromZodError(validatedTask.error).message);
+      return res
+        .status(400)
+        .json({ error: fromZodError(validatedTask.error).message });
     }
     //
 
