@@ -20,9 +20,11 @@ const requireAuth = async (
     return res.status(401).json({ error: "authorization token required" });
   }
 
+  console.log(authorization, "authorization: requireAuth middleware");
+
   const token = authorization.split(" ")[1];
   //
-  console.log(token, "requireAuth middleware");
+  console.log(token, "token: requireAuth middleware");
 
   //
   try {
@@ -31,11 +33,11 @@ const requireAuth = async (
       process.env.JWT_SECRET as string
     ) as JwtPayload;
     //
-    console.log(_id, "_id requireAuth middleware");
+    console.log(_id, "_id: requireAuth middleware");
     //this set to only send id - of the user - from all his details
     req.user = await User.findOne({ _id }).select("_id");
     //
-    console.log(req.user, "req.user requireAuth middleware");
+    console.log(req.user, "req.user: requireAuth middleware");
 
     //
     next();
