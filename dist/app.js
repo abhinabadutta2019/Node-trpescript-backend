@@ -15,13 +15,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const mongoose_1 = __importDefault(require("mongoose"));
+const cors_1 = __importDefault(require("cors")); // Import the cors package
 const task_1 = require("./routers/task");
+const user_1 = require("./routers/user");
 const app = (0, express_1.default)();
 app.use(express_1.default.json()); // Middleware to parse JSON requests
 dotenv_1.default.config();
+app.use((0, cors_1.default)()); // Enable CORS for all routes
 //////////////////////////////////////////
 ///////mongoDB cloud//////////////////
-let uri = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.te788iv.mongodb.net/typescript-MERN?retryWrites=true&w=majority`;
+let uri = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.te788iv.mongodb.net/typescript-MERN-13-Oct-23?retryWrites=true&w=majority`;
 //
 function connectToMongoDB() {
     return __awaiter(this, void 0, void 0, function* () {
@@ -46,6 +49,7 @@ app.get("/", (req, res) => {
 });
 // routes
 app.use("/tasks", task_1.tasksRouter);
+app.use("/users", user_1.userRouter);
 //
 const PORT = process.env.PORT || 3006;
 app.listen(PORT, () => console.log(`server running at ${PORT}`));
