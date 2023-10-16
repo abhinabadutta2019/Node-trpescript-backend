@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { Task } from "../models/Task";
 import { TaskSchema } from "../validators/taskValidator";
 import { fromZodError } from "zod-validation-error";
+import jwt from "jsonwebtoken";
 //
 
 /////////////
