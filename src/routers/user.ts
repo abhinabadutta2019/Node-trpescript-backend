@@ -39,7 +39,21 @@ router.post("/", async (req, res) => {
   }
 });
 
-//
+//login
+
+router.post("/login", async (req, res) => {
+  try {
+    const { username, password } = req.body;
+    const user = await User.find({ username: username });
+
+    console.log(user, "user");
+
+    res.json(user);
+  } catch (err) {
+    console.log(err);
+    res.json(err);
+  }
+});
 
 //
 export { router as userRouter };
