@@ -1,6 +1,6 @@
-// const Task = require("../models/Task");
 import { Task } from "../models/Task";
 import { Router } from "express";
+import { Request, Response, NextFunction } from "express";
 const router = Router();
 import {
   createTask,
@@ -10,9 +10,16 @@ import {
   updateTaskCompleted,
 } from "../controllers/taskController";
 //
+import { requireAuth, CustomRequest } from "../middleware/requireAuth";
+
+// Import the CustomRequest type
+// import { CustomRequest } from '../middleware/requireAuth';
+
+// require auth for all workout routes
+router.use(requireAuth);
 //
-// Define routes
-router.post("/", createTask);
+
+//
 router.get("/", getTasks);
 router.put("/:id", updateTaskByID);
 router.delete("/:id", deleteTaskByID);

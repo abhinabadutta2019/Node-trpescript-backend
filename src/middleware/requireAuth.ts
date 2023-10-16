@@ -5,7 +5,7 @@ import { Request, Response, NextFunction } from "express";
 //
 // Define an interface that extends the Request interface
 interface CustomRequest extends Request {
-  user: any; // Replace 'any' with the actual user data type
+  user?: any; // Replace 'any' with the actual user data type
 }
 
 const requireAuth = async (
@@ -35,4 +35,4 @@ const requireAuth = async (
   }
 };
 
-export { requireAuth };
+export { requireAuth, CustomRequest };
