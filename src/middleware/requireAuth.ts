@@ -1,7 +1,8 @@
 import jwt from "jsonwebtoken";
-import User from "../models/User";
+import { User } from "../models/User";
+import { Request, Response, NextFunction } from "express";
 
-const requireAuth = async (req, res, next) => {
+const requireAuth = async (req: Request, res: Response, next: NextFunction) => {
   const { authoriztion } = req.headers;
 
   if (!authoriztion) {
@@ -11,7 +12,7 @@ const requireAuth = async (req, res, next) => {
   const token = authoriztion.split(" ")[1];
   //
   try {
-    const { _id } = jwt.verify(token, process.env.JWT_SECRET);
+    const { _id } = jwt.verify(token, process.env.JWT_SECRET as string);
     //this set to only send id - of the user - from all his details
     req.user = await User.findOne({ _id }).select("_id");
     next();
