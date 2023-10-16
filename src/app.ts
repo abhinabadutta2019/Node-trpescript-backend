@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import cors from "cors"; // Import the cors package
 import { tasksRouter } from "./routers/task";
+import { userRouter } from "./routers/user";
 
 const app = express();
 app.use(express.json()); // Middleware to parse JSON requests
@@ -37,6 +38,7 @@ app.get("/", (req, res) => {
 });
 // routes
 app.use("/tasks", tasksRouter);
+app.use("/user", userRouter);
 
 //
 const PORT = process.env.PORT || 3006;
