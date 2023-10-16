@@ -36,4 +36,4 @@ const requireAuth = async (
   }
 };
 
-export { requireAuth, CustomRequest };
+export { requireAuth };

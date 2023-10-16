@@ -10,7 +10,7 @@ import {
   updateTaskCompleted,
 } from "../controllers/taskController";
 //
-import { requireAuth, CustomRequest } from "../middleware/requireAuth";
+import { requireAuth } from "../middleware/requireAuth";
 
 // Import the CustomRequest type
 // import { CustomRequest } from '../middleware/requireAuth';
