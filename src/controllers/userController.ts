@@ -4,6 +4,18 @@ import { UserSchema } from "../validators/userValidator";
 import { fromZodError } from "zod-validation-error";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+// import dotenv from "dotenv";
+// dotenv.config();
+
+// console.log(process.env.JWT_SECRET, "from userController");
+
+//
+const createToken = (_id: string) => {
+  return jwt.sign({ _id: _id }, process.env.JWT_SECRET as string, {
+    expiresIn: "1h",
+  });
+};
+//
 
 const getAllUser = async (req: Request, res: Response) => {
   try {
@@ -76,8 +88,13 @@ const loginUser = async (req: Request, res: Response) => {
     if (!isMatch) {
       return res.status(401).json({ message: "Incorrect password" });
     }
+    // creating token
+    const token = createToken(user._id.toString());
+    //
 
-    res.status(200).json({ user: user, message: "login successful" });
+    res
+      .status(200)
+      .json({ user: user, message: "login successful", token: token });
   } catch (err) {
     console.log(err);
     res.status(500).json(err);

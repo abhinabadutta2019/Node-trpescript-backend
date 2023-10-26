@@ -10,6 +10,8 @@ app.use(express.json()); // Middleware to parse JSON requests
 dotenv.config();
 app.use(cors()); // Enable CORS for all routes
 //////////////////////////////////////////
+////test/////
+// console.log(process.env.JWT_SECRET, "process.env.JWT_SECRET");
 
 ///////mongoDB cloud//////////////////
 let uri = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.te788iv.mongodb.net/typescript-MERN-13-Oct-23?retryWrites=true&w=majority`;
@@ -41,7 +43,7 @@ app.use("/tasks", tasksRouter);
 app.use("/users", userRouter);
 
 //
-const PORT = process.env.PORT || 3006;
+const PORT = process.env.PORT;
 
 app.listen(PORT, () => console.log(`server running at ${PORT}`));
 //
