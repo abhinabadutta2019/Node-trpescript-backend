@@ -1,6 +1,7 @@
 // const Task = require("../models/Task");
 import { Task } from "../models/Task";
 import { Router } from "express";
+import { verifyJWT } from "../middleware/verifyJWT";
 const router = Router();
 import {
   createTask,
@@ -12,8 +13,14 @@ import {
 //
 //
 // Define routes
+//
+// router.get("/", getTasks);
+//
+router.get("/", verifyJWT, getTasks);
+//
 router.post("/", createTask);
-router.get("/", getTasks);
+
+//
 router.put("/:id", updateTaskByID);
 router.delete("/:id", deleteTaskByID);
 //toogle task- true/false

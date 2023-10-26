@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
-import jwt from "jsonwebtoken";
+import jwt, { JwtPayload } from "jsonwebtoken";
+import { User } from "../models/User";
 
 const verifyJWT = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -8,11 +9,30 @@ const verifyJWT = async (req: Request, res: Response, next: NextFunction) => {
     }
     const authHeader = req.headers.authorization;
 
+    // console.log(authHeader, "authHeader from middleware");
     const token = authHeader.split(" ")[1];
 
-    await jwt.verify(token, process.env.JWT_SECRET as string);
+    const result = jwt.verify(
+      token,
+      process.env.JWT_SECRET as string
+    ) as JwtPayload;
+    // console.log(result, "result");
+    const userID = result._id;
+
+    const user = await User.findOne({ _id: userID });
+    console.log(user, "user");
+
+    if (!user) {
+      return res.status(401).json();
+    }
+
+    // console.log(_id, "_id");
+    next();
+    //
   } catch (err) {
     console.log(err);
-    res.json();
+    res.status(401).json({ error: "Request is not authorized" });
   }
 };
+
+export { verifyJWT };
