@@ -5,6 +5,11 @@ import { fromZodError } from "zod-validation-error";
 //
 
 /////////////
+interface CustomRequest extends Request {
+  //as no question mark - was the reason of error
+  user?: any; // Replace 'any' with the actual user data type
+}
+//
 //
 const createTask = async (req: Request, res: Response) => {
   try {
@@ -66,12 +71,14 @@ const createTask = async (req: Request, res: Response) => {
 //
 // const createdTask = await afterValidatedTask.save();
 //
-const getTasks = async (req: Request, res: Response) => {
+const getTasks = async (req: CustomRequest, res: Response) => {
   //
   // console.log(
   //   req.headers.authorization,
   //   "req.headers.authorization from getTasks "
   // );
+
+  console.log(req.user, "req.user in getTasks");
 
   //
   try {
