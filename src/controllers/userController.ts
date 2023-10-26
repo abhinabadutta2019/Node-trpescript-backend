@@ -3,6 +3,7 @@ import { User } from "../models/User";
 import { UserSchema } from "../validators/userValidator";
 import { fromZodError } from "zod-validation-error";
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 const getAllUser = async (req: Request, res: Response) => {
   try {
