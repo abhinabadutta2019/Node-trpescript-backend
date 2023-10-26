@@ -92,9 +92,11 @@ const loginUser = async (req: Request, res: Response) => {
     const token = createToken(user._id.toString());
     //
 
-    res
-      .status(200)
-      .json({ user: user, message: "login successful", token: token });
+    res.status(200).json({
+      username: user.username,
+      message: "login successful",
+      token: token,
+    });
   } catch (err) {
     console.log(err);
     res.status(500).json(err);

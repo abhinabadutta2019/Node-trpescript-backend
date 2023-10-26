@@ -67,9 +67,16 @@ const createTask = async (req: Request, res: Response) => {
 // const createdTask = await afterValidatedTask.save();
 //
 const getTasks = async (req: Request, res: Response) => {
+  //
+  // console.log(
+  //   req.headers.authorization,
+  //   "req.headers.authorization from getTasks "
+  // );
+
+  //
   try {
     const tasks = await Task.find({});
-    console.log(tasks, "from getTasks route");
+    // console.log(tasks, "from getTasks route");
 
     if (tasks.length < 1) {
       return res.json({ message: "no task found" });
