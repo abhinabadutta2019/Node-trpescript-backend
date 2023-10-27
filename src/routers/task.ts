@@ -14,9 +14,11 @@ import {
 //
 // Define routes
 //
+// using middleware for all routes below
+router.use(verifyJWT);
 // router.get("/", getTasks);
 //
-router.get("/", verifyJWT, getTasks);
+router.get("/", getTasks);
 //
 router.post("/", createTask);
 
