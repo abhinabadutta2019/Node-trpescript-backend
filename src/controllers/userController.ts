@@ -31,7 +31,7 @@ const getAllUser = async (req: Request, res: Response) => {
 const registerUser = async (req: Request, res: Response) => {
   try {
     //
-    console.log(req.body, "req.body of registerUser");
+    // console.log(req.body, "req.body of registerUser");
     //
     const { username, password } = req.body;
     //
@@ -59,8 +59,13 @@ const registerUser = async (req: Request, res: Response) => {
       password: hashedPassword,
     });
     await user.save();
+    //
+    // creating token
+    const token = createToken(user._id.toString());
 
-    res.json({ user: user, message: "user created" });
+    res
+      .status(200)
+      .json({ username: user.username, message: "user created", token: token });
   } catch (err) {
     console.log(err);
     res.status(500).json(err);

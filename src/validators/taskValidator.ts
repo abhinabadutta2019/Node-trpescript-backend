@@ -8,6 +8,7 @@ export const TaskSchema = z.object({
   completed: z.boolean().optional().default(false),
   // slot: z.string().optional(),
   slot: z.enum(["morning", "evening", "night"]).optional().default("night"),
+  //
 });
 
 // with custom error message

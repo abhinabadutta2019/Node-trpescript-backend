@@ -11,10 +11,12 @@ interface CustomRequest extends Request {
 }
 //
 //
-const createTask = async (req: Request, res: Response) => {
+const createTask = async (req: CustomRequest, res: Response) => {
   try {
     //
-    console.log(req.body, "req.body");
+    // console.log(req.body, "req.body");
+    //
+    console.log(req.user, "req.user from createTask");
 
     //
     const { name, completed, description, slot } = req.body;
@@ -26,9 +28,9 @@ const createTask = async (req: Request, res: Response) => {
     };
     // Validate the input against the Zod schema
     const validatedTask = TaskSchema.safeParse(task);
-    console.log(validatedTask, "validatedTask");
+    // console.log(validatedTask, "validatedTask");
     //
-    console.log(validatedTask);
+    // console.log(validatedTask);
 
     // error for zod schema
     if (!validatedTask.success) {
@@ -37,10 +39,10 @@ const createTask = async (req: Request, res: Response) => {
         "fromZodError(validatedTask.error)"
       );
 
-      console.log(
-        fromZodError(validatedTask.error).message,
-        ">>fromZodError(validatedTask.error).message"
-      );
+      // console.log(
+      //   fromZodError(validatedTask.error).message,
+      //   ">>fromZodError(validatedTask.error).message"
+      // );
 
       //zod messa in a string showing
       return res
@@ -57,6 +59,8 @@ const createTask = async (req: Request, res: Response) => {
       completed: validatedData.completed,
       description: validatedData.description,
       slot: validatedData.slot,
+      //
+      userID: req.user,
     });
 
     await createdTask.save();
@@ -72,17 +76,12 @@ const createTask = async (req: Request, res: Response) => {
 // const createdTask = await afterValidatedTask.save();
 //
 const getTasks = async (req: CustomRequest, res: Response) => {
-  //
-  // console.log(
-  //   req.headers.authorization,
-  //   "req.headers.authorization from getTasks "
-  // );
-
-  console.log(req.user, "req.user in getTasks");
+  // console.log(req.user, "req.user in getTasks");
 
   //
   try {
-    const tasks = await Task.find({});
+    // const tasks = await Task.find({});
+    const tasks = await Task.find({ userID: req.user._id });
     // console.log(tasks, "from getTasks route");
 
     if (tasks.length < 1) {

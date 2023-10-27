@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { User } from "./User";
 
 const taskSchema = new mongoose.Schema(
   {
@@ -6,6 +7,11 @@ const taskSchema = new mongoose.Schema(
     description: { type: String, required: true },
     completed: { type: Boolean },
     slot: { type: String },
+    userID: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      require: true,
+    },
   },
   { timestamps: true }
 );
