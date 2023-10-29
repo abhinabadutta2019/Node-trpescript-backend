@@ -8,11 +8,18 @@ import { userRouter } from "./routers/user";
 const app = express();
 app.use(express.json()); // Middleware to parse JSON requests
 dotenv.config();
-app.use(cors()); // Enable CORS for all routes
-//////////////////////////////////////////
-////test/////
-// console.log(process.env.JWT_SECRET, "process.env.JWT_SECRET");
 
+/////////////////////
+// Configure CORS to allow requests from your frontend URL
+const corsOptions = {
+  origin: "https://mern-taskapp-frontend.onrender.com",
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true, // If your API supports cookies or authentication headers
+};
+//
+app.use(cors(corsOptions));
+
+////////////////////////
 ///////mongoDB cloud//////////////////
 let uri = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.te788iv.mongodb.net/typescript-MERN-13-Oct-23?retryWrites=true&w=majority`;
 //
