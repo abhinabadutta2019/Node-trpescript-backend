@@ -42,9 +42,14 @@ connectToMongoDB();
 ////////////////////////////////////////////
 console.log("Hi1");
 
-app.get("/", (req, res) => {
-  res.send("Hello2");
+// app.get("/", (req, res) => {
+//   res.send("Hello2");
+// });
+import path from "path"; // Import the "path" module
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "build", "index.html")); // Serve the main HTML file for all routes
 });
+
 // routes
 app.use("/tasks", tasksRouter);
 app.use("/users", userRouter);
