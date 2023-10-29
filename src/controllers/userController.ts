@@ -66,9 +66,13 @@ const registerUser = async (req: Request, res: Response) => {
     res
       .status(200)
       .json({ username: user.username, message: "user created", token: token });
-  } catch (err) {
-    console.log(err);
-    res.status(500).json(err);
+  } catch (err: any) {
+    if (err.code === 11000) {
+      res.status(400).json({ error: "Username already exists" });
+    } else {
+      console.log(err);
+      res.status(500).json(err);
+    }
   }
 };
 
@@ -83,7 +87,7 @@ const loginUser = async (req: Request, res: Response) => {
     const user = await User.findOne({ username: username });
 
     if (!user) {
-      return res.status(404).json({ messsage: "user not found" });
+      return res.status(404).json({ message: "user not found" });
     }
 
     console.log(user.password, "user");
