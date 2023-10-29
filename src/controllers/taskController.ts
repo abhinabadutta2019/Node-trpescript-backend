@@ -67,8 +67,13 @@ const createTask = async (req: CustomRequest, res: Response) => {
 
     res.json({ createdTask: createdTask });
     // res.json();
-  } catch (err) {
-    res.status(500).json(err);
+  } catch (err: any) {
+    if (err.code === 11000) {
+      res.status(400).json({ error: "Task name already exists" });
+    } else {
+      console.log(err);
+      res.status(500).json(err);
+    }
   }
 };
 
