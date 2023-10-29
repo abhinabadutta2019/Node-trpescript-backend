@@ -83,6 +83,21 @@ const loginUser = async (req: Request, res: Response) => {
   //
   try {
     const { username, password } = req.body;
+    // from zod validations
+    const validatedTask = UserSchema.safeParse({
+      username: username,
+      password: password,
+    });
+    //
+    if (!validatedTask.success) {
+      //zod messa in a string showing
+      return res
+        .status(400)
+        .json({ error: fromZodError(validatedTask.error).message });
+    }
+    //
+
+    //
     // need to be findOne(find giving error )
     const user = await User.findOne({ username: username });
 

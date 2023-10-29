@@ -169,10 +169,10 @@ const updateTaskCompleted = async (req: Request, res: Response) => {
     //
     await oneTask.save();
     //
-    const tasks = await Task.find();
+    // const tasks = await Task.find();
 
     //
-    res.status(200).json({ oneTask: oneTask, tasks: tasks });
+    res.status(200).json({ oneTask: oneTask });
   } catch (err) {
     res.status(500).json(err);
   }
