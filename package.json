@@ -1,6 +1,7 @@
 {
   "name": "node-typescript-backend",
   "version": "1.0.0",
+  "homepage": "https://mern-taskapp-frontend.onrender.com",
   "description": "",
   "main": "index.js",
   "scripts": {
