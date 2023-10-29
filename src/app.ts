@@ -12,7 +12,10 @@ dotenv.config();
 /////////////////////
 // Configure CORS to allow requests from your frontend URL
 const corsOptions = {
-  origin: "https://mern-taskapp-frontend.onrender.com",
+  origin: [
+    "https://mern-taskapp-frontend.onrender.com",
+    "http://localhost:3000",
+  ],
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true, // If your API supports cookies or authentication headers
 };
@@ -45,10 +48,10 @@ console.log("Hi1");
 // app.get("/", (req, res) => {
 //   res.send("Hello2");
 // });
-import path from "path"; // Import the "path" module
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "build", "index.html")); // Serve the main HTML file for all routes
-});
+// import path from "path"; // Import the "path" module
+// app.get("*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "build", "index.html")); // Serve the main HTML file for all routes
+// });
 
 // routes
 app.use("/tasks", tasksRouter);
